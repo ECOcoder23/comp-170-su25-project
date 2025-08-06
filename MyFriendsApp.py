@@ -60,7 +60,7 @@ def menu_options():
         if numeric == 1:
              create_friend()
         elif numeric == 2: 
-             friend_search()
+             record_search()
         elif numeric == 3:
              None
         elif numeric == 4:
@@ -69,12 +69,22 @@ def menu_options():
              if numeric < 1 or numeric > 4:
                   print("Error, input not in specified range")
 
+def record_search():
+     path_to_file = "/workspaces/comp-170-su25-project/"
+     file = "friends_database.csv"
+     load_stream = open(path_to_file + file, "r")
+     for line in load_stream:
+          if line:
+               friend_search() 
+          else:
+               print("No records available for review")
+
 def friend_search():
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
      load_stream = open(path_to_file + file, "r")
      prompt_1 = input("Friend Name (First Last): ")
-     if prompt_1:
+     if prompt_1: 
           for line in load_stream: 
                info = line.strip()
                friend_attr = info.split(',')
@@ -87,7 +97,7 @@ def friend_search():
                          print(f"Record Found: {full_name.upper()}")     
                          record_options = input("Press E to edit or D to delete: ") 
                     else:
-                         if input_name != full_name or full_name == False:
+                         if input_name != full_name:
                               print("Record Not Found")
                               menu_options()
                          if record_options:
