@@ -200,7 +200,9 @@ Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
      elif report_prompt_num == 2 or 3.2:
           birthday_sort()
      elif report_prompt_num == 3 or 3.3:
-          print_labels()
+          labels = print_labels()
+          for label in labels:
+               print(label.title())
      elif report_prompt_num == 4 or 3.4:
           menu_options()
      else:
@@ -228,6 +230,21 @@ def birthday_sort():
      pass
 
 def print_labels():
-     pass
+     path_to_file = "/workspaces/comp-170-su25-project/"
+     file = "friends_database.csv"
+     addresses = []
+     with open(path_to_file + file, "r") as load_stream: 
+          lines = load_stream.readlines()
+          for line in lines:  
+               info = line.strip()
+               friend_attr = info.split(',')
+               if friend_attr:
+                    full_name = friend_attr[0] + " " + friend_attr[1]
+                    address = friend_attr[4:]
+                    for item in address: 
+                         full_address = ", ".join(item)
+                         mailing_address = full_name + ", " + full_address
+                         addresses.append(mailing_address)
+          return addresses        
 
 menu_options()
