@@ -194,10 +194,9 @@ Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
      numeric_range = [1, 2, 3, 4, 3.1, 3.2, 3.3, 3.4]
      report_prompt_num = int(report_prompt)
      if report_prompt_num == 1 or 3.1:
-          alpha_sort()
           sorted_names = alpha_sort()
           for name in sorted_names:
-               print(f"{name.title()}")
+               print(name.title())
      elif report_prompt_num == 2 or 3.2:
           birthday_sort()
      elif report_prompt_num == 3 or 3.3:
@@ -230,6 +229,5 @@ def birthday_sort():
 
 def print_labels():
      pass
-
 
 menu_options()
