@@ -94,16 +94,16 @@ def friend_search():
           if friend_attr:
                first_name = friend_attr[0].strip().lower()
                last_name = friend_attr[1].strip().lower()
-               full_name = f"{first_name} {last_name}"
+               full_name = first_name + " " + last_name
                if prompt_1 == full_name:
                     print(f"Record Found: {full_name.title()}")     
                     record_options()
                     found = True
                     break 
-               else:
-                    if not found:
-                         print("Record Not Found")
-                         menu_options()
+       else:
+           if not found:
+               print("Record Not Found")
+               menu_options()
                          
 def record_options():
      path_to_file = "/workspaces/comp-170-su25-project/"
