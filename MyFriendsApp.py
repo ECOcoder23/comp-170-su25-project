@@ -102,8 +102,8 @@ def friend_search():
                     break 
        
        if not found:
-               print("Record Not Found")
-               menu_options()
+          print("Record Not Found")
+          menu_options()
                          
 def record_options():
      path_to_file = "/workspaces/comp-170-su25-project/"
