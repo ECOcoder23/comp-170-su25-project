@@ -190,9 +190,9 @@ def edit_record():
 
 def report_options():
      report_prompt = input("3.1 List of Friends Alphabetically \n3.2 List of Friends by Upcoming\
-Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
+ Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
      numeric_range = [1, 2, 3, 4, 3.1, 3.2, 3.3, 3.4]
-     report_prompt_num = int(report_prompt)
+     report_prompt_num = float(report_prompt)
      if report_prompt_num == 1 or 3.1:
           sorted_names = alpha_sort()
           for name in sorted_names:
@@ -200,9 +200,8 @@ Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
      elif report_prompt_num == 2 or 3.2:
           birthday_sort()
      elif report_prompt_num == 3 or 3.3:
-          labels = print_labels()
-          for label in labels:
-               print(label.title())
+          mail_labels = print_labels()
+          print(mail_labels)
      elif report_prompt_num == 4 or 3.4:
           menu_options()
      else:
@@ -239,12 +238,13 @@ def print_labels():
                info = line.strip()
                friend_attr = info.split(',')
                if friend_attr:
+                    full_name_list = []
                     full_name = friend_attr[0] + " " + friend_attr[1]
+                    full_name_list.append(full_name)
                     address = friend_attr[4:]
-                    for item in address: 
-                         full_address = ", ".join(item)
-                         mailing_address = full_name + ", " + full_address
-                         addresses.append(mailing_address)
-          return addresses        
-
+                    mailing_address = full_name_list + address
+                    addresses.append(mailing_address)
+          return addresses      
+     
 menu_options()
+
