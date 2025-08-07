@@ -31,7 +31,7 @@ def create_friend():
                                 new_friend.zip = prompt_7
                                 if prompt_7:
                                     final_prompt = input("Save Friend? (Yes/No): ")
-                                    if final_prompt == "Yes" or "yes":
+                                    if final_prompt.lower() == "yes":
                                         first_name_str = str(new_friend.first_name)
                                         last_name_str = str(new_friend.last_name)
                                         birthmonth_str = str(month)
@@ -48,7 +48,7 @@ def create_friend():
                                         print(f"New Friend: {new_friend.__str__()} saved to file")
                                         menu_options()
                                     else:
-                                        if final_prompt == "No" or "no":
+                                        if final_prompt.lower() == "no":
                                                 print("Friend Creation Canelled")
                                                 menu_options()
                                         
@@ -85,12 +85,11 @@ def friend_search():
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
      load_stream = open(path_to_file + file, "r")
+     lines = load_stream.readlines()
+     found = False
      prompt_1 = input("Friend Name (First Last): ")
-     i = 0
-     count = len(load_stream.readlines())
      if prompt_1: 
-        while i <= count:
-          for line in load_stream: 
+          for line in lines:  
                info = line.strip()
                friend_attr = info.split(',')
                if friend_attr:
@@ -101,35 +100,36 @@ def friend_search():
                     if input_name == full_name:
                          print(f"Record Found: {full_name.upper()}")     
                          record_options()
-                    elif input_name != full_name: 
-                         i += 1
+                         found = True
+                         break 
                     else:
-                         print("Record Not Found")
-                         menu_options()
+                         if not found:
+                              print("Record Not Found")
+                              menu_options()
                          
 def record_options():
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
      edit_stream = open(path_to_file + file, "r")
-     record_prompt = input("Press E to Edit record or D to Delete record")                                                
+     record_prompt = input("Press E to Edit record or D to Delete record ")                                                
      lines = edit_stream.readlines()
      if record_prompt:
-          if record_prompt == "E" or "e":
+          if record_prompt.lower() == "e":
                edit_record()                                       
           else:
-               if record_prompt == "D" or "d":
+               if record_prompt.lower() == "d":
                   deletion_prompt = input("Are you sure you want to delete this friend record? (Yes/No): ")
-                  if deletion_prompt == "Yes" or "yes":
+                  if deletion_prompt.lower() == "yes":
                     confirmation_prompt = input("Confirmation of Friend Record for Deletion (First Last): ") 
                     deletion_stream = open(path_to_file + file, "wt") 
                     for line in lines:
                        if confirmation_prompt not in line:
                          deletion_stream.write(line)
-                         deletion_stream.close
+                         deletion_stream.close()
                          print("Record Deleted")
                          menu_options()
                   else:
-                       if deletion_prompt == "No" or "no":
+                       if deletion_prompt.lower() == "no":
                           edit_record()        
                                    
 def edit_record():
@@ -137,12 +137,17 @@ def edit_record():
      file = "friends_database.csv"
      load_stream = open(path_to_file + file, "r")
      lines = load_stream.readlines() 
-     initial_edit_prompt = input("Confirmation of Friend Record for Modification (First Last): ")
+     initial_edit_prompt = input("Confirmation of Friend Record for Modification (First Last): ").strip().lower()
+     found = False 
+     updated_lines = []
      for line in lines: 
-          if initial_edit_prompt in line:
-               info = line.strip()
-               friend_attr = info.split(',')
-               edit_promt_1 = input("First Name (modified): ") 
+          info = line.strip()
+          friend_attr = info.split(',')
+          full_name = f"{friend_attr[0].strip().lower()} {friend_attr[1].strip().lower()}"
+          if initial_edit_prompt == full_name:
+               found = True 
+               print(f"Friend Record for Modification: {full_name.title()}")    
+               edit_promt_1 = input("First Name (modified): ")                                                     
                if edit_promt_1:
                     friend_attr[0] = edit_promt_1
                     edit_prompt_2 = input("Last Name (modified): ")
@@ -166,20 +171,24 @@ def edit_record():
                                                   edit_prompt_8 = input("Zip (modified): ")
                                                   if edit_prompt_8:
                                                        friend_attr[7] = edit_prompt_8
-                                                       final_prompt = input("Save Edit? (Yes/No): ")
-                                                       if final_prompt == "Yes" or "yes":
-                                                            save_stream = open(path_to_file + file, "a")
-                                                            save_stream.write(",".join(item for item in friend_attr)) 
-                                                            save_stream.close
-                                                            print(f"Friend Edit: {friend_attr[0] + " " + friend_attr[1]} saved to file")
+                                                       final_prompt = input("Save Edit? (Yes/No): ").strip().lower()
+                                                       if final_prompt.lower() == "yes":
+                                                            updated_line = ",".join(item for item in friend_attr) + "\n"
+                                                            updated_lines.append(updated_line)
+                                                            print(f"Friend Edit: {(friend_attr[0] + " " + friend_attr[1]).title()} saved to file")
                                                             menu_options()
                                                        else:
-                                                            if final_prompt == "No" or "no":
-                                                                 print("Record Unchanged")
-                                                                 menu_options()
-                              
-                    
-                         
-menu_options()                                  
-                
+                                                            if final_prompt.lower() == "no":
+                                                                 updated_lines.append(line)
+                                                                 print("Record Unchanged")                              
+              
+     if not found:
+          print("Friend Not in Record")  
+          menu_options()
+     
+     save_stream = open(path_to_file + file, "wt") 
+     save_stream.writelines(updated_lines)
+     menu_options()
 
+
+menu_options()
