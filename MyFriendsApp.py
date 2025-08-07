@@ -84,28 +84,26 @@ def record_search():
 def friend_search():
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
-     load_stream = open(path_to_file + file, "r")
-     lines = load_stream.readlines()
-     found = False
-     prompt_1 = input("Friend Name (First Last): ")
-     if prompt_1: 
-          for line in lines:  
-               info = line.strip()
-               friend_attr = info.split(',')
-               if friend_attr:
-                    first_name = friend_attr[0].lower()
-                    last_name = friend_attr[1].lower()
-                    full_name = first_name + " " + last_name
-                    input_name = prompt_1.lower()
-                    if input_name == full_name:
-                         print(f"Record Found: {full_name.upper()}")     
-                         record_options()
-                         found = True
-                         break 
-                    else:
-                         if not found:
-                              print("Record Not Found")
-                              menu_options()
+     with open(path_to_file + file, "r") as load_stream: 
+       lines = load_stream.readlines()
+       prompt_1 = input("Friend Name (First Last): ").strip().lower()
+       found = False
+       for line in lines:  
+          info = line.strip()
+          friend_attr = info.split(',')
+          if friend_attr:
+               first_name = friend_attr[0].strip().lower()
+               last_name = friend_attr[1].strip().lower()
+               full_name = f"{first_name} {last_name}"
+               if prompt_1 == full_name:
+                    print(f"Record Found: {full_name.title()}")     
+                    record_options()
+                    found = True
+                    break 
+               else:
+                    if not found:
+                         print("Record Not Found")
+                         menu_options()
                          
 def record_options():
      path_to_file = "/workspaces/comp-170-su25-project/"
