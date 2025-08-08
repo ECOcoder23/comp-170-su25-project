@@ -188,26 +188,6 @@ def edit_record():
      save_stream.writelines(updated_lines)
      menu_options()
 
-def report_options():
-     report_prompt = input("3.1 List of Friends Alphabetically \n3.2 List of Friends by Upcoming\
- Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
-     numeric_range = [1, 2, 3, 4, 3.1, 3.2, 3.3, 3.4]
-     report_prompt_num = float(report_prompt)
-     if report_prompt_num == 1 or 3.1:
-          sorted_names = alpha_sort()
-          for name in sorted_names:
-               print(name.title())
-     elif report_prompt_num == 2 or 3.2:
-          birthday_sort()
-     elif report_prompt_num == 3 or 3.3:
-          mail_labels = print_labels()
-          print(mail_labels)
-     elif report_prompt_num == 4 or 3.4:
-          menu_options()
-     else:
-          if report_prompt_num not in numeric_range:
-               print(f"Input value {report_prompt_num} not in acceptable numeric range")
-
 def alpha_sort(): 
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
