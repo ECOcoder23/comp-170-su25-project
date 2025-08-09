@@ -60,7 +60,8 @@ class Birthday:
             num_of_days = 365 + (days_til_bday - days_til_date)
         else:
             num_of_days = 0
-            
+        return num_of_days
+
     def day_in_year(self, month, day):
         """calculates the day number within the year corresponding to a given
         date (month, day), assuming that February has 28 days always."""

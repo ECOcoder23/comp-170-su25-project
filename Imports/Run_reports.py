@@ -36,7 +36,7 @@ def birthday_sort():
                 month = int(friend_attr[2])
                 day = int(friend_attr[3])
                 friend.set_birthday(month, day)
-                
+                days_left = Birthday.days_until()
 
 
 
