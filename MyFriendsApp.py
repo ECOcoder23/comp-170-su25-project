@@ -1,6 +1,23 @@
 from Friend import Person
 from Birthday import Birthday
 
+def menu_options():
+    while True:
+        prompt_1 = "Application closed, Goodbye"
+        menu_options = input("1 - Create new friend record\n2 - Search for a friend\n3 - Run reports\n4 - Exit\n-> ")
+        numeric = int(menu_options)
+        if numeric == 1:
+             create_friend()
+        elif numeric == 2: 
+             record_search()
+        elif numeric == 3:
+             report_options()
+        elif numeric == 4:
+             print(prompt_1)
+             break
+        else:
+             if numeric < 1 or numeric > 4:
+                  print("Error, input not in specified range")
 def create_friend():
     path_to_file = "/workspaces/comp-170-su25-project/"
     file = "friends_database.csv"
@@ -53,25 +70,6 @@ def create_friend():
                                                 print("Friend Creation Canelled")
                                                 menu_options()
                                         
-
-def menu_options():
-    while True:
-        prompt_1 = "Application closed, Goodbye"
-        menu_options = input("1 - Create new friend record\n2 - Search for a friend\n3 - Run reports\n4 - Exit\n-> ")
-        numeric = int(menu_options)
-        if numeric == 1:
-             create_friend()
-        elif numeric == 2: 
-             record_search()
-        elif numeric == 3:
-             report_options()
-        elif numeric == 4:
-             print(prompt_1)
-             break
-        else:
-             if numeric < 1 or numeric > 4:
-                  print("Error, input not in specified range")
-
 def record_search():
      path_to_file = "/workspaces/comp-170-su25-project/"
      file = "friends_database.csv"
@@ -193,21 +191,20 @@ def report_options():
     report_prompt = input("3.1 List of Friends Alphabetically \n3.2 List of Friends by Upcoming\
  Birthdays \n3.3 Mailing Labels for Friends \n3.4 Return to Previous Menu: ")
     numeric_range = [1, 2, 3, 3.1, 3.1, 3.3, 3.4, 4]
-    input_num = float(report_prompt)
-    if input_num == 1 or 3.1:
-          alpha_sort()
-          print(alpha_sort())
-    elif input_num == 2 or 3.2:
-          birthday_sort()
-          print(birthday_sort())
-    elif input_num == 3 or 3.3:
-          print_labels()
-          print(print_labels())
-    elif input_num == 4 or 3.4:
+    if int(report_prompt) == 1 or 3.1:
+          alpha_list = alpha_sort()
+          print(alpha_list)
+    elif int(report_prompt) == 2 or 3.2:
+          birthday_dict = birthday_sort()
+          print(birthday_dict)
+    elif int(report_prompt) == 3 or 3.3:
+          mailing_labels = print_labels()
+          print(mailing_labels)
+    elif int(report_prompt) == 4 or 3.4:
           menu_options()
     else:
-        if input_num not in numeric_range:
-            print(f"Input value {input_num} not in acceptable numeric range")
+        if int(report_prompt) not in numeric_range:
+            print(f"Input value {(int(report_prompt))} not in acceptable numeric range")
 
 def birthday_sort():
     path_to_file = "/workspaces/comp-170-su25-project/"
@@ -226,8 +223,8 @@ def birthday_sort():
                 month = int(friend_attr[2])
                 day = int(friend_attr[3])
                 friend.set_birthday(month, day)
-                days_left = Birthday.days_until()
-                birthday_dict[full_name] = f"Days Until Birthday: {days_left}"
+                days_left = friend._birthday.days_until()
+                birthday_dict[full_name] = f"Days Until Birthday = {days_left}"
         return birthday_dict    
 
 def alpha_sort(): 
@@ -243,7 +240,7 @@ def alpha_sort():
                     first_name = friend_attr[0].strip().lower()
                     last_name = friend_attr[1].strip().lower()
                     full_name = f"{first_name} {last_name}"
-                    names.append(full_name)
+                    names.append(full_name.title())
                     names.sort()
           return names          
 
@@ -267,3 +264,8 @@ def print_labels():
 
 menu_options()
 
+print(alpha_sort())
+
+print(birthday_sort())
+
+print(print_labels())
