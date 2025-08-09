@@ -26,19 +26,25 @@ def report_options():
 def birthday_sort():
     path_to_file = "/workspaces/comp-170-su25-project/"
     file = "friends_database.csv"
+    birthday_dict = {}
     with open(path_to_file + file, "r") as load_stream:
         lines = load_stream.readlines()
         for line in lines:
             info = line.strip()
             friend_attr = info.split(',')
             if friend_attr:
-                friend = Person(friend_attr[0], friend_attr[1])
+                first_name = friend_attr[0]
+                last_name = friend_attr[1]
+                full_name = f"{first_name} {last_name}"
+                friend = Person(first_name, last_name)
                 month = int(friend_attr[2])
                 day = int(friend_attr[3])
                 friend.set_birthday(month, day)
                 days_left = Birthday.days_until()
-
-
+                birthday_dict[full_name] = f"Days Until Birthday: {days_left}"
+        return birthday_dict
+                
+       
 
 def alpha_sort(): 
      path_to_file = "/workspaces/comp-170-su25-project/"
