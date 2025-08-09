@@ -1,5 +1,6 @@
 from Friend import Person
 
+
 def create_friend():
     path_to_file = "/workspaces/comp-170-su25-project/"
     file = "friends_database.csv"

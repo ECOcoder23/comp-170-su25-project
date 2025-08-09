@@ -12,7 +12,9 @@ def report_options():
         for name in sorted_names:
             print(name.title())
     elif input_num == 2 or 3.2:
-        birthday_sort()
+        birthdays = birthday_sort()
+        for birthday in birthdays:
+            print(birthday)
     elif input_num == 3 or 3.3:
         mailing_labels = print_labels()
         for label in mailing_labels:
