@@ -188,43 +188,5 @@ def edit_record():
      save_stream.writelines(updated_lines)
      menu_options()
 
-def alpha_sort(): 
-     path_to_file = "/workspaces/comp-170-su25-project/"
-     file = "friends_database.csv"
-     names = []
-     with open(path_to_file + file, "r") as load_stream: 
-          lines = load_stream.readlines()
-          for line in lines:  
-               info = line.strip()
-               friend_attr = info.split(',')
-               if friend_attr:
-                    first_name = friend_attr[0].strip().lower()
-                    last_name = friend_attr[1].strip().lower()
-                    full_name = f"{first_name} {last_name}"
-                    names.append(full_name)
-                    names.sort()
-          return names          
-
-def birthday_sort():
-     pass
-
-def print_labels():
-     path_to_file = "/workspaces/comp-170-su25-project/"
-     file = "friends_database.csv"
-     addresses = []
-     with open(path_to_file + file, "r") as load_stream: 
-          lines = load_stream.readlines()
-          for line in lines:  
-               info = line.strip()
-               friend_attr = info.split(',')
-               if friend_attr:
-                    full_name_list = []
-                    full_name = friend_attr[0] + " " + friend_attr[1]
-                    full_name_list.append(full_name)
-                    address = friend_attr[4:]
-                    mailing_address = full_name_list + address
-                    addresses.append(mailing_address)
-          return addresses      
-     
 menu_options()
 
